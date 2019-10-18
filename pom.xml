@@ -19,7 +19,7 @@
         <project.encoding>UTF-8</project.encoding>
         <java.src.version>1.6</java.src.version>
         <java.target.version>1.6</java.target.version>
-        <springframework.version>3.2.12.RELEASE</springframework.version>
+        <springframework.version>5.2.0.RELEASE</springframework.version>
         <slf4j.version>1.7.9</slf4j.version>
 
     </properties>
