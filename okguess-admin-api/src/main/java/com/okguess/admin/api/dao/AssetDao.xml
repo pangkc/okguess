@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.okguess.admin.api.dao.AssetDao">
+
+    <resultMap id="result"
+               type="com.okguess.admin.api.entity.Asset">
+
+        <result property="id" column="ID"/>
+        <result property="asset" column="ASSET"/>
+        <result property="status" column="STATUS"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="result">
+		SELECT *
+		FROM ASSETS
+	</select>
+
+    <insert id="insert">
+        REPLACE INTO ASSETS
+        (
+        ASSET,
+        STATUS
+        )
+        VALUES
+        (
+        #{asset},
+        #{status}
+        )
+    </insert>
+</mapper>

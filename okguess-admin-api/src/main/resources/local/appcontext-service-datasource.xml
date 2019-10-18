@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:properties id="jdbc" location="classpath:jdbc.properties"/>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close" lazy-init="false">
+        <property name="jdbcUrl" value="#{jdbc['jdbc.url']}"></property>
+        <property name="user" value="#{jdbc['jdbc.username']}"></property>
+        <property name="password" value="#{jdbc['jdbc.password']}"></property>
+        <property name="driverClass" value="#{jdbc['jdbc.driverClass']}"></property>
+        <property name="initialPoolSize" value="#{jdbc['jdbc.initialPoolSize']}"></property>
+        <property name="minPoolSize" value="#{jdbc['jdbc.minPoolSize']}"></property>
+        <property name="maxPoolSize" value="#{jdbc['jdbc.maxPoolSize']}"></property>
+        <property name="acquireIncrement" value="#{jdbc['jdbc.acquireIncrement']}"></property>
+        <property name="maxIdleTime" value="#{jdbc['jdbc.maxIdleTime']}"></property>
+        <property name="checkoutTimeout" value="#{jdbc['jdbc.checkoutTimeout']}"></property>
+        <property name="maxStatements" value="0"></property>
+    </bean>
+
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath:com/okguess/admin/api/dao/*.xml" />
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.okguess.admin.api.dao"/>
+        <property name="annotationClass" value="com.okguess.admin.api.dao.Mapper"></property>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+
+</beans>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.okguess.admin.api.dao.UserInfoDao">
+
+    <resultMap id="result"
+               type="com.okguess.admin.api.entity.UserInfo">
+
+        <result property="id" column="ID"/>
+        <result property="bpUserId" column="BP_USER_ID"/>
+        <result property="bpNick" column="BP_NICK"/>
+        <result property="bpPhoto" column="BP_PHOTO"/>
+        <result property="createTime" column="CREATE_TIME"/>
+    </resultMap>
+
+    <select id="findByBpUesrId" resultMap="result">
+		SELECT *
+		FROM USER_INFO
+		WHERE BP_USER_ID = #{bpUserId}
+	</select>
+
+</mapper>
