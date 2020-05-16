@@ -7,6 +7,11 @@
     <display-name>OKGuess Api</display-name>
 
     <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>okguess.user.api</param-value>
+    </context-param>
+
+    <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:local/appcontext-*.xml
         </param-value>
